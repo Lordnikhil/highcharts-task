@@ -1,56 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { Chart } from './app/Chart';
+import {useSelector, useDispatch} from 'react-redux';
+import {setChartData , perFormLogout} from './actions'
+import ChartData from './json/chart_data.json'
+import Grid from './app/Table';
+import { Button } from '@material-ui/core';
 
-function App() {
+function App(props) {
+  const chartData = useSelector(state=>state.chartData)
+  const dispatch = useDispatch();
+  let [showChart, setShowChart] = useState(true)
+  dispatch(setChartData(ChartData))
+    
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <Button onClick={()=>setShowChart(!showChart)}>{ !showChart ? "Chart" : "Table"} View</Button>
+      <Button onClick={()=>{
+        dispatch(perFormLogout())
+        props.history.push("/");
+        }}>Log out</Button>
+      <div>
+
+      </div>
+      {
+        showChart ? <Chart /> : <Grid/>
+      }
     </div>
   );
 }
