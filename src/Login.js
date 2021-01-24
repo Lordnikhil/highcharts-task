@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { perFormLogin, perFormLogout } from './actions'
 import { Button, InputLabel, Input, Box } from '@material-ui/core';
+import Auth from './reducers/isLogged';
 
 export const LoginPage = props => {
 
@@ -14,7 +15,7 @@ export const LoginPage = props => {
 
         if (e.target.username.value === "login" && e.target.password.value === "123") {
             setShowError(false)
-            dispatch(perFormLogin())
+            Auth.setDummyLogin();
             props.history.push("/app")
         }
         else {

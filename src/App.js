@@ -6,6 +6,7 @@ import {setChartData , perFormLogout} from './actions'
 import ChartData from './json/chart_data.json'
 import Grid from './app/Table';
 import { Button } from '@material-ui/core';
+import Auth from './reducers/isLogged'
 
 function App(props) {
   const chartData = useSelector(state=>state.chartData)
@@ -18,7 +19,7 @@ function App(props) {
     <div className="App">
       <Button onClick={()=>setShowChart(!showChart)}>{ !showChart ? "Chart" : "Table"} View</Button>
       <Button onClick={()=>{
-        dispatch(perFormLogout())
+        Auth.logOut();
         props.history.push("/");
         }}>Log out</Button>
       <div>
